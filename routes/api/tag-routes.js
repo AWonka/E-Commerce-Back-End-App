@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
     } 
     res.status(200).json(data);
   } catch (err) {
-    res.status(500).json(data);
+    res.status(500).json(err);
   }
 });
 
@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
     const data = await Tag.create(req.body);
     res.status(200).json(data);
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -56,6 +56,7 @@ router.put('/:id', async (req, res) => {
         id: req.params.id,
       },
     });
+    
     if (!data) {
       res.status(404).json({ message: "No tag found with this ID! Please use another Tag ID!" });
       return;
